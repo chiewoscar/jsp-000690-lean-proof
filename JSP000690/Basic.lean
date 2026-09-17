@@ -106,4 +106,54 @@ theorem transversal_edge_critical :
 
 end Transversal
 
+section LiConstruction
+
+/-- Li's 9-vertex example (arXiv:2512.24850, Theorem 1.2). Paper vertex `i`
+corresponds to `i - 1 : Fin 9`. The first ten edges contain vertex `0`
+(paper vertex 1); the remaining twelve lie in `{1, …, 8}`. -/
+def liEdges : Finset (Finset (Fin 9)) :=
+  { {0, 1, 2}, {0, 1, 8}, {0, 2, 7}, {0, 3, 5}, {0, 3, 7}, {0, 3, 8},
+    {0, 4, 6}, {0, 4, 7}, {0, 4, 8}, {0, 5, 6},
+    {1, 2, 5}, {1, 2, 6}, {1, 3, 8}, {1, 4, 8}, {1, 5, 6},
+    {2, 3, 7}, {2, 4, 7}, {2, 5, 6}, {3, 5, 7}, {3, 5, 8},
+    {4, 6, 7}, {4, 6, 8} }
+
+/-- Li's example is 3-uniform. -/
+theorem li_uniform : ThreeUniform liEdges := by
+  decide +kernel
+
+/-- Li's example is not 2-colourable: all `2^9 = 512` colourings are checked
+directly by the kernel. -/
+theorem li_not_two_colorable : ¬ TwoColorable liEdges := by
+  decide +kernel
+
+/-- Deleting any edge of Li's example restores 2-colourability
+(the paper's Appendix B.1 certificates are found here by enumeration). -/
+theorem li_edge_critical : ∀ e ∈ liEdges, TwoColorable (liEdges.erase e) := by
+  decide +kernel
+
+/-- Deleting any vertex of Li's example restores 2-colourability: the induced
+subhypergraph `H - v` keeps only the edges avoiding `v`. -/
+theorem li_vertex_critical :
+    ∀ v : Fin 9, TwoColorable (liEdges.filter (v ∉ ·)) := by
+  decide +kernel
+
+/-- Li's example is 3-chromatic-critical. -/
+theorem li_critical : ThreeChromaticCritical liEdges :=
+  ⟨li_not_two_colorable, li_edge_critical⟩
+
+/-- Degrees in Li's example: vertex `0` (paper vertex 1) has degree ten, every
+other vertex has degree seven — `δ = 7`. -/
+theorem li_min_degree_seven : ∀ v : Fin 9, 7 ≤ Degree v liEdges := by
+  decide +kernel
+
+/-- Li's example answers JSP-000690 affirmatively under the chromatic
+interpretation: a 3-uniform, 3-chromatic-critical hypergraph with minimum
+degree at least seven exists. -/
+theorem jsp_000690 : JSP000690Question :=
+  ⟨Fin 9, inferInstance, inferInstance, liEdges,
+    li_uniform, li_critical, li_min_degree_seven⟩
+
+end LiConstruction
+
 end JSP000690

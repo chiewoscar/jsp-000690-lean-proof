@@ -1,0 +1,38 @@
+JSP000690.ThreeUniform.{u_1} {V : Type u_1} (E : Finset (Finset V)) : Prop
+JSP000690.ProperTwoColoring.{u_1} {V : Type u_1} (E : Finset (Finset V)) (c : V → Fin 2) : Prop
+JSP000690.TwoColorable.{u_1} {V : Type u_1} (E : Finset (Finset V)) : Prop
+JSP000690.ThreeChromaticCritical.{u_1} {V : Type u_1} [DecidableEq V] (E : Finset (Finset V)) : Prop
+JSP000690.Degree.{u_1} {V : Type u_1} [DecidableEq V] (v : V) (E : Finset (Finset V)) : ℕ
+JSP000690.JSP000690Question : Prop
+JSP000690.edges : Finset (Finset JSP000690.Vertex)
+JSP000690.edges_uniform : JSP000690.ThreeUniform JSP000690.edges
+JSP000690.not_two_colorable : ¬JSP000690.TwoColorable JSP000690.edges
+JSP000690.erase_two_colorable (e : Finset JSP000690.Vertex) :
+  e ∈ JSP000690.edges → JSP000690.TwoColorable (JSP000690.edges.erase e)
+JSP000690.critical : JSP000690.ThreeChromaticCritical JSP000690.edges
+JSP000690.all_degrees_six (v : JSP000690.Vertex) : JSP000690.Degree v JSP000690.edges = 6
+JSP000690.min_degree_six (v : JSP000690.Vertex) : 6 ≤ JSP000690.Degree v JSP000690.edges
+JSP000690.no_two_transversal : ¬∃ s, s.card ≤ 2 ∧ ∀ e ∈ JSP000690.edges, JSP000690.Hits s e
+JSP000690.transversal_edge_critical (e : Finset JSP000690.Vertex) :
+  e ∈ JSP000690.edges → ∃ s, s.card ≤ 2 ∧ ∀ f ∈ JSP000690.edges, f ≠ e → JSP000690.Hits s f
+JSP000690.liEdges : Finset (Finset (Fin 9))
+JSP000690.li_uniform : JSP000690.ThreeUniform JSP000690.liEdges
+JSP000690.li_not_two_colorable : ¬JSP000690.TwoColorable JSP000690.liEdges
+JSP000690.li_edge_critical (e : Finset (Fin 9)) :
+  e ∈ JSP000690.liEdges → JSP000690.TwoColorable (JSP000690.liEdges.erase e)
+JSP000690.li_vertex_critical (v : Fin 9) : JSP000690.TwoColorable ({x ∈ JSP000690.liEdges | v ∉ x})
+JSP000690.li_critical : JSP000690.ThreeChromaticCritical JSP000690.liEdges
+JSP000690.li_min_degree_seven (v : Fin 9) : 7 ≤ JSP000690.Degree v JSP000690.liEdges
+JSP000690.jsp_000690 : JSP000690.JSP000690Question
+'JSP000690.not_two_colorable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'JSP000690.erase_two_colorable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'JSP000690.critical' depends on axioms: [propext, Classical.choice, Quot.sound]
+'JSP000690.all_degrees_six' depends on axioms: [propext, Classical.choice, Quot.sound]
+'JSP000690.no_two_transversal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'JSP000690.transversal_edge_critical' depends on axioms: [propext, Classical.choice, Quot.sound]
+'JSP000690.li_not_two_colorable' depends on axioms: [propext, Classical.choice, Quot.sound]
+'JSP000690.li_edge_critical' depends on axioms: [propext, Classical.choice, Quot.sound]
+'JSP000690.li_vertex_critical' depends on axioms: [propext, Classical.choice, Quot.sound]
+'JSP000690.li_critical' depends on axioms: [propext, Classical.choice, Quot.sound]
+'JSP000690.li_min_degree_seven' depends on axioms: [propext, Classical.choice, Quot.sound]
+'JSP000690.jsp_000690' depends on axioms: [propext, Classical.choice, Quot.sound]
