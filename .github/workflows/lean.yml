@@ -1,0 +1,15 @@
+name: Lean verification
+on:
+  push:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: true
+      - name: No sorry or admit in proof sources
+        run: '! grep -rnE "\b(sorry|admit)\b" --include="*.lean" JSP000690.lean JSP000690/'
